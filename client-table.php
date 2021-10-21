@@ -54,7 +54,7 @@
                                     <span data-feather='more-horizontal'></span>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="client-stock-table.php.php?user_id=<?php print($rowStock['UserID'])?>">View stocks</a>
+                                        <a class="dropdown-item" href="client-stock-table.php?user_id=<?php print($rowUser['UserID'])?>">View stocks</a>
                                       
                                     </div>
                                 </td>

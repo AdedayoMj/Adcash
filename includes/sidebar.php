@@ -12,7 +12,7 @@
                 </a>
                 <a class="nav-link" href="purchase-stock.php">
                     <span data-feather="plus-circle"></span>
-                   Purchase a stock
+                   Purchase stock
                 </a>
             </li>
         </ul>
