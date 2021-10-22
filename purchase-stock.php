@@ -21,24 +21,22 @@ if(isset($_POST['btn_save'])){
     if(!empty($_POST['UserPurchaseID']) && !empty($_POST['UserStockID']) ) {
         $UserPurchaseID  = strip_tags($_POST['UserPurchaseID']);
         $UserStockID  = strip_tags($_POST['UserStockID']);
-        $Volume  = strip_tags($_POST['Volume']);
-        echo "<script>console.log('Debug Objects: " . $Volume . "' );</script>";
+        // $Volume  = strip_tags($_POST['Volume']);
+        // $Purchase_Price  = $rowStock['Stock_ID'];
+    
       
         
     try{
 
-          if($objPurchase->purchaseStockOption($UserPurchaseID, $UserStockID,$Volume )){
-            $objPurchase->redirect('purchase-stock.php?purchased');
-          }else{
-            $objPurchase->redirect('purchase-stock.php?error');
-          }
+          // if($objPurchase->purchaseStockOption($UserPurchaseID, $UserStockID,$Volume )){
+          //   $objPurchase->redirect('purchase-stock.php?purchased');
+          // }else{
+          //   $objPurchase->redirect('purchase-stock.php?error');
+          // }
      }catch(PDOException $e){
        echo $e->getMessage();
      }
-    }
-
-     
-     else {
+    }else {
         echo 'Please select the value.';
     }
 }
@@ -106,16 +104,18 @@ if(isset($_POST['btn_save'])){
                             while($rowStock = $result->fetch(PDO::FETCH_ASSOC)){
                             ?>
                       
-                            <option id='<?php print($rowStock['Stock_ID']) ?>' value='<?php print($rowStock['Stock_ID']) ?>' selected=""><?php print($rowStock['Company_Name']) ?></option>
+                            <option id='<?php print($rowStock['Stock_ID']) ?>' value='<?php print($rowStock['Stock_ID']) ?>' selected="<?php print($rowStock['Stock_ID']) ?>"><?php print($rowStock['Company_Name']) ?></option>
                                   <?php } } ?>
                             </select>
                             </div>
                            
-
+<!-- 
                             <div class="form-group mt-4">
-                            <input class="form-control" placeholder="Volume" type="number" name="Volume" id="Volume" value=''  required/>
+                            <input class="form-control" placeholder="Volume"  step="any" type="number" name="Volume" id="Volume" value=''  required/>
                         </div>
-                        
+                        <div class="form-group mt-4" >
+                            <input  class="form-control" placeholder="Purchase Price" step="any"  type="number" name="Purchase_Price" id="Purchase_Price" value='<?php print($rowStock['Unit_Price']) ?>'  disabled required/>
+                        </div> -->
                         </div>           
                         <div class="row">
                             <div class="col-sm-12 form-group mt-3">

@@ -31,8 +31,11 @@ $objPurchase =new Purchase();
                         if(isset($_GET['user_id'])){
                               $searchUserID = $_GET['user_id'];
                               $getUserQuery= "SELECT UserName FROM users_list WHERE UserID=:searchUserID;";
-                              $query = "SELECT u.UserName, p.Volume, p.Purchase_Price,ROUND((((p.Volume*p.Purchase_Price)-(p.Volume*s.Unit_Price))/100),2) as Gain_Loss, s.Company_Name, s.Unit_Price FROM `purchase_list` as p INNER JOIN users_list as u ON u.UserID= p.UserPurchaseID INNER JOIN stock_list as s ON p.UserStockID=s.Stock_ID WHERE u.UserID=:searchUserID;";
-                              $summarQuery = "SELECT ROUND(SUM(((p.Volume*p.Purchase_Price)-(p.Volume*s.Unit_Price))/100),2) as Profit, ROUND((SUM(p.Volume*p.Purchase_Price)),2) as Invested, ROUND(((SUM(((p.Volume*p.Purchase_Price)-(p.Volume*s.Unit_Price))/100)/(SUM(p.Volume*p.Purchase_Price)))*100),2) as Performace, ROUND((u.Cash_Balance-(SUM(p.Volume*p.Purchase_Price))),2) as Balance FROM `purchase_list` as p INNER JOIN users_list as u ON u.UserID= p.UserPurchaseID INNER JOIN stock_list as s ON p.UserStockID=s.Stock_ID WHERE u.UserID=:searchUserID;";
+                              $query = "SELECT u.UserName, p.Volume, p.Purchase_Price,ROUND((((p.Volume*s.Unit_Price)-(p.Volume*p.Purchase_Price))),2) as Gain_Loss, s.Company_Name, s.Unit_Price FROM `purchase_list` as p INNER JOIN users_list as u ON u.UserID= p.UserPurchaseID INNER JOIN stock_list as s ON p.UserStockID=s.Stock_ID WHERE u.UserID=:searchUserID;";
+                              $summarQuery = "SELECT ROUND(SUM(((p.Volume*s.Unit_Price)-(p.Volume*p.Purchase_Price))),2) as Profit, 
+                              ROUND((SUM(p.Volume*p.Purchase_Price)),2) as Invested, 
+                              ROUND(((SUM((p.Volume*s.Unit_Price)-(p.Volume*p.Purchase_Price))/(SUM(p.Volume*p.Purchase_Price)))*100),2) as Performace, 
+                              ROUND((u.Cash_Balance-(SUM(p.Volume*p.Purchase_Price))),2) as Balance FROM `purchase_list` as p INNER JOIN users_list as u ON u.UserID= p.UserPurchaseID INNER JOIN stock_list as s ON p.UserStockID=s.Stock_ID WHERE u.UserID=:searchUserID;";
                               $stmt = $objPurchase->runQuery($query);
                               $summartStmt= $objPurchase->runQuery($summarQuery);
                               $getUser= $objPurchase->runQuery($getUserQuery);
@@ -77,7 +80,7 @@ $objPurchase =new Purchase();
                                 <td>
                                 €  <?php print($rowView['Unit_Price']) ?>
                                 </td>
-                                <td style='color: <?php echo($rowView['Gain_Loss']) >=0 ? '#33FF90':'#FF3C33' ?>'>
+                                <td style='color: <?php echo($rowView['Gain_Loss']) >0 ? '#33FF90':'#FF3C33' ?>'>
                                 %  <?php print($rowView['Gain_Loss']) ?>
                                 </td>
                             </tr>
@@ -88,13 +91,13 @@ $objPurchase =new Purchase();
           
                    
                     <div class="row">
-                    <div class='float-end  mt-1'> Total :  <span style='color: <?php echo($summaryView['Profit']) >=0 ? '#33FF90':'#FF3C33' ?>'>€ <?php print($summaryView['Profit']) ?></span></div>
+                    <div class='float-end  mt-1'> Total :  <span style='color: <?php echo($summaryView['Profit']) >0 ? '#33FF90':'#FF3C33' ?>'>€ <?php print($summaryView['Profit']) ?></span></div>
                     </div>
                     <div class="row">
                     <div class='float-end  mt-1'> Invested :  € <?php print($summaryView['Invested']) ?></div>
                     </div>
                     <div class="row">
-                    <div class='float-end  mt-1'> Performance :  <span style='color: <?php echo($summaryView['Performace']) >=0 ? '#33FF90':'#FF3C33' ?>'>% <?php print($summaryView['Performace']) ?></div>
+                    <div class='float-end  mt-1'> Performance :  <span style='color: <?php echo($summaryView['Performace']) >0 ? '#33FF90':'#FF3C33' ?>'>% <?php print($summaryView['Performace']) ?></div>
                     </div>
                     <div class="row">
                     <div class='float-end  mt-1'> Cash Balance :  € <?php print($summaryView['Balance']) ?></div>
