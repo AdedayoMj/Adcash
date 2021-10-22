@@ -73,7 +73,7 @@ if(isset($_POST['btn_save'])){
                             <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"> €</span>
                             </div>
-                            <input type="number" name="Unit_Price" id="Unit_Price" class="form-control" placeholder="Unit price" aria-label="Unit_Price" value="<?php print($rowStock['Unit_Price']) ?>" required aria-describedby="basic-addon1" >
+                            <input type="number" step="any" name="Unit_Price" id="Unit_Price" class="form-control" placeholder="Unit price" aria-label="Unit_Price" value="<?php print($rowStock['Unit_Price']) ?>" required aria-describedby="basic-addon1" >
                         </div>
                       
                         

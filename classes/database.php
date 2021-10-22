@@ -1,10 +1,10 @@
 <?php
 class Database {
     // Connection variables
-    private $host = "localhost";
-    private $dbName = "adcash";
-    private $username = "root";
-    private $password = "";
+    private $host = "eu-cdbr-west-01.cleardb.com";
+    private $dbName = "heroku_41b4a24a7a51ad4";
+    private $username = "be8aa564c07d44";
+    private $password = "0061b20e";
 
     public $conn;
 
